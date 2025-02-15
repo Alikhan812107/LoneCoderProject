@@ -26,12 +26,12 @@ public class Player {
         if (!onGround) {
             yVelocity += gravity;
         } else {
-            yVelocity = 0; // Reset vertical speed when on ground
+            yVelocity = 0;
         }
         y += yVelocity;
 
-        // 🔹 Prevent player from falling through the ground
-        if (y > 470) { // Adjust based on your ground platform height
+
+        if (y > 470) {
             y = 470;
             onGround = true;
         }

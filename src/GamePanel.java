@@ -14,21 +14,21 @@ public class GamePanel extends JPanel implements KeyListener {
     private int score = 0;
     private boolean gameOver = false;
     private boolean gameWon = false;
-    private final int WINNING_SCORE = 10; // Number of coins required to win
+    private final int WINNING_SCORE = 10;
 
-    private boolean[] keys = new boolean[256]; // Tracks multiple keys at once
+    private boolean[] keys = new boolean[256];
 
     private Timer gameLoop, coinTimer, bulletTimer;
 
     public GamePanel() {
         this.setFocusable(true);
         this.addKeyListener(this);
-        this.setBackground(Color.CYAN); // Set background color
+        this.setBackground(Color.CYAN);
 
         player = new Player(50, 400);
         enemy = new Enemy(700, 300, 200, 450);
 
-        platforms.add(new Platform(0, 500, 800, 50));  // Ground
+        platforms.add(new Platform(0, 500, 800, 50));
         platforms.add(new Platform(150, 450, 120, 15));
         platforms.add(new Platform(300, 400, 100, 15));
         platforms.add(new Platform(500, 350, 120, 15));
@@ -39,10 +39,10 @@ public class GamePanel extends JPanel implements KeyListener {
         gameLoop = new Timer(30, e -> update());
         gameLoop.start();
 
-        coinTimer = new Timer(3000, e -> coins.add(new Coin())); // Generate coins every 3 seconds
+        coinTimer = new Timer(3000, e -> coins.add(new Coin()));
         coinTimer.start();
 
-        bulletTimer = new Timer(2000, e -> enemy.shoot(bullets)); // Enemy shoots every 2 seconds
+        bulletTimer = new Timer(2000, e -> enemy.shoot(bullets));
         bulletTimer.start();
     }
 
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements KeyListener {
         for (Coin coin : coins) coin.draw(g);
         for (Bullet bullet : bullets) bullet.draw(g);
 
-        // 🔹 Draw score on the screen
+
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score, 20, 30);
@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements KeyListener {
         player.applyGravity();
         enemy.move();
 
-        // 🔹 Check collision with platforms (prevent falling)
+
         player.onGround = false;
         for (Platform platform : platforms) {
             if (player.y + 30 >= platform.y && player.y + 30 <= platform.y + 10 &&
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements KeyListener {
             }
         }
 
-        // 🔹 Prevent player from leaving the screen (borders)
+
         if (player.x < 0) player.x = 0;
         if (player.x > 770) player.x = 770;
         if (player.y > 570) player.y = 570;
@@ -106,18 +106,18 @@ public class GamePanel extends JPanel implements KeyListener {
             }
         }
 
-        // 🔹 Fix coin collection logic (increase score when collecting)
+
         coins.removeIf(coin -> {
             boolean collected = player.x + 30 > coin.x && player.x < coin.x + 20 &&
                     player.y + 30 > coin.y && player.y < coin.y + 20;
-            if (collected) score++;  // Increase score when coin is collected
+            if (collected) score++;
             return collected;
         });
 
-        // 🔹 Check if player has won
+
         if (score >= WINNING_SCORE) gameWon = true;
 
-        // 🔹 Handles moving left/right while jumping
+
         if (keys[KeyEvent.VK_LEFT]) player.moveLeft();
         if (keys[KeyEvent.VK_RIGHT]) player.moveRight();
         if (keys[KeyEvent.VK_UP]) player.jump();
@@ -127,12 +127,12 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keys[e.getKeyCode()] = true; // Track key press
+        keys[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keys[e.getKeyCode()] = false; // Track key release
+        keys[e.getKeyCode()] = false;
     }
 
     @Override
