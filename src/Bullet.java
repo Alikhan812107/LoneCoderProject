@@ -1,5 +1,5 @@
 import java.awt.*;
-
+//Also the bullet behaiviour can be changed
 public class Bullet {
     public int x, y;
     public int speed = 7;

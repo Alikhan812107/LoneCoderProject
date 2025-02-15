@@ -1,6 +1,6 @@
 import java.awt.*;
 import java.util.List;
-
+//Enemy settings and variables which I can change
 public class Enemy {
     public int x, y;
     public int speed = 3;
@@ -13,7 +13,7 @@ public class Enemy {
         this.minY = minY;
         this.maxY = maxY;
     }
-
+// Direction
     public void move() {
         y += speed * direction;
         if (y >= maxY || y <= minY) direction *= -1;

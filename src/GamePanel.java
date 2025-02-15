@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements KeyListener {
         player = new Player(50, 400);
         enemy = new Enemy(700, 300, 200, 450);
 
+// Here we have platforms and the main platform, they are very important
         platforms.add(new Platform(0, 500, 800, 50));
         platforms.add(new Platform(150, 450, 120, 15));
         platforms.add(new Platform(300, 400, 100, 15));
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements KeyListener {
         platforms.add(new Platform(250, 250, 150, 15));
         platforms.add(new Platform(450, 200, 120, 15));
 
+        //Here we have a Timer for the game process and the timer for coin appearance and bullet shooting
         gameLoop = new Timer(30, e -> update());
         gameLoop.start();
 
@@ -46,6 +48,7 @@ public class GamePanel extends JPanel implements KeyListener {
         bulletTimer.start();
     }
 
+    // Game over or won?
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -117,6 +120,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
         if (score >= WINNING_SCORE) gameWon = true;
 
+        //The controll of the movement of the player (red square)
 
         if (keys[KeyEvent.VK_LEFT]) player.moveLeft();
         if (keys[KeyEvent.VK_RIGHT]) player.moveRight();
@@ -125,6 +129,7 @@ public class GamePanel extends JPanel implements KeyListener {
         repaint();
     }
 
+    // Fixing the problem related with disability of using jump and left or right
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
